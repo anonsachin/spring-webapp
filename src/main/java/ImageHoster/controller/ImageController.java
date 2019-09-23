@@ -52,6 +52,7 @@ public class ImageController {
         model.addAttribute("tags", image.getTags());
         model.addAttribute("editError",false);
         model.addAttribute("deleteError",false);
+        model.addAttribute("comments",image.getComments());
         return "images/image";
     }
 
@@ -103,6 +104,7 @@ public class ImageController {
             model.addAttribute("tags", image.getTags());
             model.addAttribute("editError","Only the owner of the image can edit the image");
             model.addAttribute("deleteError",false);
+            model.addAttribute("comments",image.getComments());
             return "images/image";
         }
 
@@ -143,7 +145,7 @@ public class ImageController {
         updatedImage.setDate(new Date());
 
         imageService.updateImage(updatedImage);
-        return "redirect:/images/" + updatedImage.getTitle();
+        return "redirect:/images/"+updatedImage.getId()+"/" + updatedImage.getTitle();
     }
 
 
@@ -160,6 +162,7 @@ public class ImageController {
             model.addAttribute("tags", image.getTags());
             model.addAttribute("editError",false);
             model.addAttribute("deleteError","Only the owner of the image can delete the image");
+            model.addAttribute("comments",image.getComments());
             return "images/image";
         }
         imageService.deleteImage(imageId);
