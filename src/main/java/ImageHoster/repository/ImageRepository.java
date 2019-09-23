@@ -83,8 +83,10 @@ public class ImageRepository {
     public Image getImageByUserAndId(User user, Integer id){
         EntityManager em = emf.createEntityManager();
         try {
+            System.out.println("INSIDE REQUEST");
             TypedQuery<Image> typedQuery = em.createQuery("SELECT i from Image i where i.user = :user and i.id = :id", Image.class).setParameter("user", user);
             typedQuery.setParameter("id",id);
+            System.out.println("ADDED PARAMETERS");
             return typedQuery.getSingleResult();
         } catch (NoResultException nre) {
             return null;

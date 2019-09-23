@@ -165,7 +165,7 @@ public class ImageControllerTest {
         user.setPassword("password1@");
 
         session = new MockHttpSession();
-        session.setAttribute("loggeduser", user);
+        session.setAttribute("loggeduser", user); //loggeduser
 
         Image image = new Image();
         image.setId(1);

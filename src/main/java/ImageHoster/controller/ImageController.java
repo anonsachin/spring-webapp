@@ -1,5 +1,6 @@
 package ImageHoster.controller;
 
+import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import ImageHoster.model.Tag;
 import ImageHoster.model.User;
@@ -49,10 +50,23 @@ public class ImageController {
     public String showImage(@PathVariable("title") String title,@PathVariable("id") Integer id, Model model) {
         Image image = imageService.getImageByTitleAndId(title,id);
         model.addAttribute("image", image);
-        model.addAttribute("tags", image.getTags());
+        List<Tag> tags;
+        try {
+            tags = image.getTags();
+        }catch (NullPointerException e){
+            tags = new ArrayList<>();
+        }
+
+        model.addAttribute("tags", tags);
         model.addAttribute("editError",false);
         model.addAttribute("deleteError",false);
-        model.addAttribute("comments",image.getComments());
+        List<Comment> comments;
+        try {
+            comments = image.getComments();
+        }catch (NullPointerException r){
+            comments = new ArrayList<>();
+        }
+        model.addAttribute("comments",comments);
         return "images/image";
     }
 
